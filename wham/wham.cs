@@ -14,26 +14,26 @@ namespace WhackAMoleGame
         private int score = 0;
         private int molesActive = 0;
         private bool gameStarted = false;
-        private int timeRemaining = 60; // Adjust the initial time as needed
+        private int timeRemaining = 60; 
 
         public WhackAMoleForm()
         {
             InitializeComponent();
 
-            // Create the mole buttons
+            
             for (int i = 0; i < 9; i++)
             {
                 moleButtons[i] = new PictureBox
                 {
                     Size = new Size(50, 50),
-                    Image = Properties.Resources.mole, // Replace with your mole image
+                    Image = Properties.Resources.mole, 
                     SizeMode = PictureBoxSizeMode.StretchImage
                 };
                 moleButtons[i].Click += MoleButton_Click;
                 Controls.Add(moleButtons[i]);
             }
 
-            // Arrange the mole buttons on the form
+            
             int x = 10;
             int y = 10;
             for (int i = 0; i < 9; i++)
@@ -47,7 +47,7 @@ namespace WhackAMoleGame
                 }
             }
 
-            // Initialize the game
+            
             scoreLabel.Text = "Score: 0";
             timeRemainingLabel.Text = "Time: 60";
             startButton.Enabled = true;
@@ -60,31 +60,31 @@ namespace WhackAMoleGame
             startButton.Enabled = false;
             stopButton.Enabled = true;
 
-            // Start the game timer
+            
             await Task.Run(() =>
             {
                 while (gameStarted && timeRemaining > 0)
                 {
-                    // Update the timer label
+                    
                     timeRemainingLabel.Invoke((MethodInvoker)delegate
                     {
                         timeRemainingLabel.Text = $"Time: {timeRemaining}";
                     });
 
-                    // Generate random mole positions
+                    
                     RandomizeMolePositions();
 
-                    // Wait for a random interval
+                    
                     Task.Delay(random.Next(500, 2000)).Wait();
 
-                    // Hide the moles
+                    
                     HideMoles();
 
                     timeRemaining--;
 
                     if (timeRemaining == 0)
                     {
-                        // Game over
+                        
                         MessageBox.Show($"Game Over! Your final score is: {score}");
                         ResetGame();
                     }
@@ -117,10 +117,10 @@ namespace WhackAMoleGame
 
         private void RandomizeMolePositions()
         {
-            // Determine the number of moles to show
+            
             molesActive = random.Next(1, 4);
 
-            // Create a list of indices to randomly select from
+            
             var availableIndices = new List<int>(Enumerable.Range(0, 9));
             for (int i = 0; i < molesActive; i++)
             {
